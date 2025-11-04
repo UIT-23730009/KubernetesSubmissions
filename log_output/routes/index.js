@@ -1,21 +1,23 @@
-import { Router } from 'express';
+import { Router } from "express";
 
 const router = Router();
 
 // Health check route
-router.get('/health', (req, res) => {
+router.get("/health", (req, res) => {
   res.status(200).json({
-    status: 'UP',
-    message: 'Server is healthy',
+    status: "UP",
+    message: "Server is healthy",
   });
 });
 
 // Root route
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   const port = process.env.LOG_OUTPUT_PORT || 3000;
   const sessionId = req.app.locals.sessionId;
 
-  res.status(200).send(`Server running on port ${port}. Session ID: ${sessionId}`);
+  res
+    .status(200)
+    .send(`Server running on port ${port}. Session ID: ${sessionId}`);
 });
 
 export default router;

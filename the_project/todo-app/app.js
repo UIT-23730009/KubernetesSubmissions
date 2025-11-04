@@ -1,5 +1,5 @@
-import express from 'express';
-import routes from './routes/index.js';
+import express from "express";
+import routes from "./routes/index.js";
 
 const app = express();
 
@@ -7,14 +7,12 @@ const app = express();
 app.use(express.json());
 
 // Register routes
-app.use('/', routes);
+app.use("/", routes);
 
 // Global error handler (optional, good practice)
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ error: 'Internal Server Error' });
+app.use((err, req, res) => {
+  console.error("Error:", err);
+  res.status(500).json({ error: "Internal Server Error" });
 });
-
-
 
 export default app;

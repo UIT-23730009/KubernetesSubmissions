@@ -1,9 +1,8 @@
-import express from "express";
 import { v7 as uuidv7 } from "uuid";
-import dotenv from 'dotenv';
-import app from './app.js';
+import dotenv from "dotenv";
+import app from "./app.js";
 
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: "../../.env" });
 const port = process.env.LOG_OUTPUT_PORT || 3000;
 
 const sessionId = app.locals.sessionId;

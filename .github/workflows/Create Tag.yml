@@ -2,14 +2,14 @@ name: Create Tag
 
 on:
   push:
-    branches: [ "main", "develop", "release" ]
-  pull_request:
-    branches: [ "main", "develop", "release" ]
+    branches: ["main", "release"]
     paths:
-      - "VERSION" 
+      - "VERSION"
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       # 1️⃣ Checkout code

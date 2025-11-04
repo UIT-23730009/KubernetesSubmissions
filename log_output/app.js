@@ -1,6 +1,6 @@
-import express from 'express';
-import routes from './routes/index.js';
-import { v7 as uuidv7 } from 'uuid';
+import express from "express";
+import routes from "./routes/index.js";
+import { v7 as uuidv7 } from "uuid";
 
 const app = express();
 // Generate random string once on startup
@@ -11,12 +11,12 @@ app.locals.sessionId = sessionId;
 app.use(express.json());
 
 // Register routes
-app.use('/', routes);
+app.use("/", routes);
 
 // Global error handler (optional, good practice)
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ error: 'Internal Server Error' });
+app.use((err, req, res) => {
+  console.error("Error:", err);
+  res.status(500).json({ error: "Internal Server Error" });
 });
 
 export default app;

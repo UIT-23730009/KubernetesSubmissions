@@ -1,82 +1,43 @@
 {
-  
   "private": true,
-  
   "workspaces": [
-  
-    
-  "log_output",
-  
-    
-  "the_project/todo-app",
-  
-    
-  "shared"
-  
+    "log_output",
+    "the_project/todo-app",
+    "shared"
   ],
-  
   "dependencies": {
-  
-    
-  "dotenv": "^17.2.3",
-  
-    
-  "express": "^5.1.0",
-  
-    
-  "nodemon": "^3.1.10",
-  
-    
-  "uuid": "^13.0.0"
-  
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "uuid": "^13.0.0"
   },
-  
   "devDependencies": {
-  
-    
-  "chai": "^6.2.0",
-  
-    
-  "concurrently": "^9.2.1",
-  
-    
-  "mocha": "^11.7.4",
-  
-    
-  "supertest": "^7.1.4",
-  
-    
-  "syncpack": "^13.0.4"
-  
+    "@eslint/js": "^9.38.0",
+    "chai": "^6.2.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.38.0",
+    "prettier": "^3.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "mocha": "^11.7.4",
+    "supertest": "^7.1.4",
+    "syncpack": "^13.0.4"
   },
-  
   "scripts": {
-  
-    
-  "start": "concurrently \"npm --workspace log_output start\" \"npm --workspace the_project/todo-app start\"",
-  
-    
-  "start:log_output": "npm --workspace log_output start",
-  
-    
-  "start:todo-app": "npm --workspace the_project/todo-app start",
-  
-    
-  "start:all": "npm run start:log_output & npm run start:todo-app",
-  
-    
-  "dev": "concurrently \"npm --workspace log_output run dev\" \"npm --workspace the_project/todo-app run dev\"",
-  
-    
-  "dev:log_output": "npm --workspace log_output run dev",
-  
-    
-  "dev:todo-app": "npm --workspace the_project/todo-app run dev",
-  
-    
-  "dev:all": "npm run dev:log_output & npm run dev:todo-app",
-  
-
-  "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config"
+    "start": "concurrently \"npm --workspace log_output start\" \"npm --workspace the_project/todo-app start\"",
+    "start:log_output": "npm --workspace log_output start",
+    "start:todo-app": "npm --workspace the_project/todo-app start",
+    "start:all": "npm run start:log_output & npm run start:todo-app",
+    "dev": "concurrently \"npm --workspace log_output run dev\" \"npm --workspace the_project/todo-app run dev\"",
+    "dev:log_output": "npm --workspace log_output run dev",
+    "dev:todo-app": "npm --workspace the_project/todo-app run dev",
+    "dev:all": "npm run dev:log_output & npm run dev:todo-app",
+    "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write ."
   }
 }
