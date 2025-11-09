@@ -13,11 +13,9 @@ describe("Server Routes", () => {
   // Test 2: GET / (root route)
   it("should return welcome message for the root route", async () => {
     const res = await request(app).get("/");
-    assert.equal(res.status, 200);
+    assert.equal(res.status, 302); // Because of redirect
     assert.match(
-      res.text,
-      /Server running on port \d+/,
-      "Response should contain server info",
+      res.text, /Redirecting to \/api\/v\d+\.\d+/,
     );
   });
 });

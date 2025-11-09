@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import app from "./app.js";
 
 dotenv.config({ path: "../../.env" });
-const port = process.env.LOG_OUTPUT_PORT || 3000;
+const port = process.env.LOG_OUTPUT_PORT ?? 3000;
 
 const sessionId = app.locals.sessionId;
 

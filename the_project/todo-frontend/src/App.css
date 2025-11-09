@@ -1,0 +1,319 @@
+/* ===================================================== 
+   Morphism UI System — Pastel Warm Edition
+   Themes: Glass | Neumo | Clay
+   Tones: light | dark | soft | vivid
+   Version: 1.2
+===================================================== */
+
+/* === 0. Root Design Tokens === */
+:root {
+  /* Typography */
+  --font-main: "Inter", "Segoe UI", Avenir, Helvetica, Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+
+  /* 🌷 Base Pastel Color Palette (Warm Set) */
+  --color-primary: #b3c7f9;   /* pastel periwinkle */
+  --color-accent: #f6c8a2;    /* peach beige accent */
+  --color-bg: #fdf8f5;        /* ivory rose */
+  --color-surface: #fffaf7;   /* soft blush */
+  --color-text: #3a2f2a;      /* warm brown-gray */
+  --color-border: rgba(0, 0, 0, 0.08);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 12px rgba(120, 80, 60, 0.08);
+  --shadow-medium: 0 8px 24px rgba(120, 80, 60, 0.12);
+  --shadow-heavy: 0 16px 40px rgba(120, 80, 60, 0.16);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-medium: 0.35s ease;
+
+  /* General */
+  color-scheme: light dark;
+  font-family: var(--font-main);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+/* === 1. Layout === */
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: background var(--transition-medium), color var(--transition-fast);
+}
+
+#root {
+  flex: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+/* === 2. Utilities === */
+.hidden { display: none !important; }
+.center { display: flex; align-items: center; justify-content: center; }
+.shadow-hover:hover { box-shadow: var(--shadow-medium); }
+
+/* === 3. Typography === */
+h1, h2, h3, h4 {
+  margin: 0 0 0.5em;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text)
+}
+p, span, li {
+  margin: 0 0 1em;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+p, span, li:focus-visible {
+  color: var(--color-text);
+}
+/* === 4. Links & Buttons === */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover, a:focus-visible {
+  color: var(--color-accent);
+  outline: none;
+}
+
+button, .btn {
+  font: inherit;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+}
+
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  color: var(--color-text)
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #352f2a;
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover {
+  filter: brightness(0.95);
+  transform: translateY(-2px);
+  color: var(--color-accent)
+}
+
+/* === 5. Cards === */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) auto;
+  max-width: 500px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* === 6. Theme Variants === */
+
+/* 🌤 Glass — soft transparency, blush overlay */
+body.glass {
+  --color-bg: linear-gradient(135deg, #fdf6f0 0%, #fffaf7 100%);
+  --color-surface: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  --color-text: #2a2421;
+}
+body.glass .card {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--shadow-medium);
+}
+
+/* ☁️ Neumo — soft convex depth */
+body.neumo {
+  --color-bg: #f3ede8;
+  --color-surface: #f3ede8;
+  --color-text: #2f2724;
+}
+body.neumo .card {
+  box-shadow: 8px 8px 16px #d9cfc9, -8px -8px 16px #ffffff;
+}
+body.neumo button {
+  box-shadow: 4px 4px 8px #d9cfc9, -4px -4px 8px #ffffff;
+}
+body.neumo button:active {
+  box-shadow: inset 4px 4px 8px #d9cfc9, inset -4px -4px 8px #ffffff;
+}
+
+/* 🍶 Clay — tactile matte look */
+body.clay {
+  --color-bg: #faf3ef;
+  --color-surface: #fffaf7;
+  --color-text: #2f2723;
+}
+body.clay .card {
+  background: linear-gradient(145deg, #ffffff, #f1e6e0);
+  box-shadow: 6px 6px 12px rgba(170, 150, 140, 0.15),
+              -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+/* === 7. Tone Modifiers === */
+body.tone-light {
+  --color-bg: #fff9f6;
+  --color-primary: #b0c8ff;
+  --color-accent: #f7cda8;
+}
+body.tone-dark {
+  --color-bg: #2b2420;
+  --color-surface: #3b3330;
+  --color-text: #f6ede8;
+  --color-primary: #c4d2ff;
+  --color-accent: #f2b88b;
+  
+}
+body.tone-soft {
+  --color-primary: #aeb8f0;
+  --color-accent: #ebc9a5;
+}
+body.tone-vivid {
+  --color-primary: #7a8cff;
+  --color-accent: #ffb1b1;
+}
+
+/* === 8. Header / Sidebar / Footer === */
+.app-header, .app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-soft);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 220px;
+  height: 100%;
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-medium);
+  transition: left var(--transition-fast);
+}
+.sidebar.open { left: 0; }
+
+.sidebar a {
+  display: block;
+  padding: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* === 9. Responsive Layout === */
+@media (max-width: 1200px) {
+  #root { padding: var(--spacing-md); }
+  .card { max-width: 90%; }
+}
+@media (max-width: 992px) {
+  .card { max-width: 85%; }
+}
+@media (max-width: 768px) {
+  .desktop-nav { display: none; }
+  .menu-btn { display: inline-block; }
+  .card { max-width: 95%; }
+}
+@media (max-width: 576px) {
+  .card { max-width: 100%; padding: var(--spacing-md); }
+}
+
+/* === 10. API Table (Server Test) === */
+.server-api-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-family: monospace;
+  padding: var(--spacing-md);
+}
+
+.api-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.api-card h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.api-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.api-row {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+}
+
+.api-key {
+  flex: 1 1 150px;
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 120px;
+}
+
+.api-value {
+  flex: 2 1 250px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-width: 200px;
+}
+
+/* === 11. Responsive API Table === */
+@media (max-width: 768px) {
+  .api-row { flex-direction: column; }
+  .api-key, .api-value { flex: 1 1 100%; min-width: 0; }
+  .api-card h2 { font-size: 1rem; }
+}
+

@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/", routes);
 
 // Global error handler (optional, good practice)
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error("Error:", err);
   res.status(500).json({ error: "Internal Server Error" });
 });

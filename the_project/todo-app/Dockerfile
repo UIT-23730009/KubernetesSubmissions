@@ -1,18 +1,17 @@
-# Use Node base image
-FROM node:20-alpine
-
-# Create app directory
+# -------- Dependencies Stage --------
+FROM node:20-alpine AS deps
 WORKDIR /usr/src/app
 
-# Copy package.json and install deps
 COPY package*.json ./
-RUN npm install --only=production
+RUN npm install --ignore-scripts
+RUN npm ci --omit=dev --ignore-scripts
 
-# Copy app source
+# -------- Runtime Stage --------
+FROM node:20-alpine
+WORKDIR /usr/src/app
+
+COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
 
-# Expose app port
 EXPOSE 3000
-
-# Start the app
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
