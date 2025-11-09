@@ -49,7 +49,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
-          tags: main
+          tags: latest
 
       - name: Build & push log_output image
         id: build-log
@@ -79,7 +79,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
-          tags: main
+          tags: latest
 
       - name: Build & push todo-app image
         id: build-todo
