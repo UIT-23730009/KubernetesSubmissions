@@ -1,8 +1,10 @@
 # KubernetesSubmissions
 [![CodeQL](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql)
 [![CodeQL Advanced](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml)
+[![Dependabot Updates](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/dependabot/dependabot-updates)
 [![Node.js CI](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml)
 [![Microsoft Defender For Devops](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml)
+[![ESLint](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/eslint.yml/badge.svg?branch=main)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/eslint.yml)
 
 ## Exercises
 
