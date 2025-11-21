@@ -43,17 +43,23 @@
   },
   "scripts": {
     "start": "concurrently \"npm --workspace log_output start\" \"npm --workspace the_project/todo-app start\"",
-    "start:log_output": "npm --workspace log_output start",
-    "start:todo-app": "npm --workspace the_project/todo-app start",
+
+    "start:log_output": "env LOG_OUTPUT_PORT=3001 npm --workspace log_output start",
+    "start:todo-app": "env TODO_PORT=3002 npm --workspace the_project/todo-app start",
+
     "start:all": "npm run start:log_output & npm run start:todo-app",
+
     "dev": "concurrently \"npm --workspace log_output run dev\" \"npm --workspace the_project/todo-app run dev\"",
-    "dev:log_output": "npm --workspace log_output run dev",
-    "dev:todo-app": "npm --workspace the_project/todo-app run dev",
+    "dev:log_output": "cross-env PORT=3001 npm --workspace log_output run dev",
+    "dev:todo-app": "cross-env PORT=3002 npm --workspace the_project/todo-app run dev",
     "dev:all": "npm run dev:log_output & npm run dev:todo-app",
+
     "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config",
+
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier --write .",
+
     "bump:patch": "npm version patch && node -p \"require('./package.json').version\" > VERSION",
     "bump:minor": "npm version minor && node -p \"require('./package.json').version\" > VERSION",
     "bump:major": "npm version major && node -p \"require('./package.json').version\" > VERSION"

@@ -1,63 +1,105 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import './index.css'
-import ServerHealthCheck from './serverHealthCheck'
+import { useEffect, useState, useCallback } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import "./index.css";
+import ServerHealthCheck from "./serverHealthCheck";
+import { CONFIG } from "./config";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [count, setCount] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen)
+  useEffect(() => {
+    console.log("Environment:", CONFIG.env);
+    console.log("API URL:", CONFIG.apiUrl);
+    console.log("Version:", CONFIG.appVersion);
+  }, []);
 
-  const switchStyle = (style, tone) => {
-    document.body.className = `${style} ${tone}`
-  }
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    const url = `api/${CONFIG.apiVersion}`;
+    try {
+      const response = await fetch(url, {
+                method: 'GET',
+                credentials: 'include',});
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error("Failed to fetch:", error);
+      setData({ error: error.message });
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-  const newLocal = "button btn btn-primary"
+  const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
+  const switchStyle = useCallback((style, tone) => {
+    document.body.className = `${style} ${tone}`;
+  }, []);
+
+  const styles = [
+    { label: "Glass", style: "glass", tone: "tone-soft" },
+    { label: "Neumo", style: "neumo", tone: "tone-light" },
+    { label: "Clay", style: "clay", tone: "tone-vivid" },
+    { label: "Dark", style: "dark", tone: "tone-dark" },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Header */}
-      <div className="container">
-        <header className="app-header morph-header">
-          
+      <header className="app-header morph-header container">
+        <nav className="desktop-nav radio-inputs">
+          {styles.map(({ label, style, tone }) => (
+            <button
+              key={label}
+              className="btn-primary"
+              onClick={() => switchStyle(style, tone)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
 
-          <nav className="desktop-nav radio-inputs">
-            <button className="btn-primary" onClick={() => switchStyle('glass', 'tone-soft')}>Glass</button>
-            <button className="btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</button>
-            <button className="btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</button>
-            <button className="btn-primary" onClick={() => switchStyle('dark', 'tone-dark')}>Dark</button>
+        <div className="logo-title">
+          <img src={viteLogo} alt="Vite" className="logo small" />
+          <h1>Morphism UI</h1>
+        </div>
 
-          </nav>
-          <div className="logo-title">
-              <img src={viteLogo} alt="Vite" className="logo small" />
-              <h1>Morphism UI</h1>
-            </div>
-            
-          <button className="btn hide-on-large-screen" onClick={toggleMenu}>
-            ☰
-          </button>
-        </header>
-      </div>
+        <button
+          className="btn-primary hide-on-large-screen"
+          onClick={toggleMenu}
+        >
+          ☰
+        </button>
+      </header>
 
       {/* Mobile Sidebar */}
-      <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
-        <button className="close-btn" onClick={toggleMenu}>×</button>
+      <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={toggleMenu}>
+          ×
+        </button>
         <nav>
-          <a className="button btn-primary" onClick={() => switchStyle('glass', 'tone-soft')}>Glass</a>
-          <a className="button btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</a>
-          <a className="button btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</a>
-          <a className="button btn-primary" onClick={() => switchStyle('', 'tone-dark')}>Dark</a>
+          {styles.map(({ label, style, tone }) => (
+            <a
+              key={label}
+              className="button btn-primary"
+              onClick={() => switchStyle(style, tone)}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
-        
       </aside>
+
       {/* Main Content */}
       <main className="main-content">
-        <div className="grid-container">
+        <div className="grid grid-auto-fit">
           <div className="card">
-            <h2 >Kubernetes Todo App</h2>
-            {/* Replace this with your actual component */}
+            <h2>Kubernetes Todo App</h2>
             <p>TodoListView() goes here</p>
           </div>
 
@@ -71,18 +113,50 @@ function App() {
                 <img src={reactLogo} className="logo react" alt="React logo" />
               </a>
             </div>
-            <button className= {newLocal} onClick={() => setCount(count + 1)}>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => setCount((c) => c + 1)}
+            >
               count is {count}
             </button>
+
             <p>
               Edit <code>src/App.jsx</code> and save to test HMR
             </p>
           </div>
 
-        </div>
-          <div className="grid-container">
-            <ServerHealthCheck />
+          <div className="card">
+            <h1>API Demo</h1>
+            <div className="info">
+              {Object.entries({
+                Environment: CONFIG.env,
+                "App Version": CONFIG.appVersion,
+                "API Version": CONFIG.apiVersion,
+                "API Base": CONFIG.apiBaseUrl,
+                "API URL": CONFIG.apiUrl,
+              }).map(([key, value]) => (
+                <p key={key}>
+                  {key}: {value}
+                </p>
+              ))}
+            </div>
+
+            <button
+              className="btn btn-primary"
+              onClick={fetchData}
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Fetch Data"}
+            </button>
+
+            {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
           </div>
+        </div>
+
+        <div className="container">
+          <ServerHealthCheck />
+        </div>
       </main>
 
       {/* Footer */}
@@ -90,7 +164,7 @@ function App() {
         <p>© 2025 Morphism UI • Built with ❤️ using Vite + React</p>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

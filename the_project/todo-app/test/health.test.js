@@ -1,8 +1,7 @@
-import * as chai from 'chai';
+import * as chai from "chai";
 import chaiHttp from "chai-http";
 import supertest from "supertest";
 import app from "../app.js";
-
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -49,9 +48,12 @@ describe("API Root", function () {
     const data = res.body.data;
     expect(data).to.have.property(
       "message",
-      "Welcome to API Root version " + apiVersion
+      "Welcome to API Root version " + apiVersion,
     );
-    expect(data).to.have.property("endpoints").that.is.an("array").that.includes("/");
+    expect(data)
+      .to.have.property("endpoints")
+      .that.is.an("array")
+      .that.includes("/");
     expect(data).to.have.property("versionedApi").that.is.a("string");
   });
 });

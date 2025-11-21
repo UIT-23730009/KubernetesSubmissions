@@ -1,5 +1,7 @@
 import { Router } from "express";
 import dotenv from "dotenv";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { sendResponse } from "../utils/response.js";
 
 // Load environment variables
 dotenv.config({ path: "../../.env" });
@@ -19,12 +21,23 @@ const router = Router();
 // });
 
 // Health check
-router.get('/health', (req, res) => {
+router.get("/health", (req, res) => {
   res.status(200).json({
-    status: 'UP',
-    message: 'Server is healthy'
+    status: "UP",
+    message: "Server is healthy",
   });
 });
 
-
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    console.log("SUCCESS: API v1.4 route was successfully hit!");
+    console.log("Request Headers:", req.headers); // Debug headers
+    sendResponse(res, {
+      message: "Welcome to API Root version " + res.app.locals.apiVersion,
+      endpoints: ["/"],
+      versionedApi: `/api/${res.app.locals.apiVersion}/`,
+    });
+  }),
+);
 export default router;

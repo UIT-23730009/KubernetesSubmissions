@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import { Router } from "express";
 import dotenv from "dotenv";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -92,7 +92,7 @@ router.get(
       appVersion: res.app.locals.appVersion,
       apiVersion: res.app.locals.apiVersion,
     });
-  })
+  }),
 );
 
 // --- API Root Endpoint ---
@@ -145,7 +145,7 @@ router.get(
       endpoints: ["/"],
       versionedApi: `/api/${res.app.locals.apiVersion}/`,
     });
-  })
+  }),
 );
 
 export default router;

@@ -14,11 +14,11 @@
   --font-weight-bold: 600;
 
   /* 🌷 Base Pastel Color Palette (Warm Set) */
-  --color-primary: #b3c7f9;   /* pastel periwinkle */
-  --color-accent: #f6c8a2;    /* peach beige accent */
-  --color-bg: #fdf8f5;        /* ivory rose */
-  --color-surface: #fffaf7;   /* soft blush */
-  --color-text: #3a2f2a;      /* warm brown-gray */
+  --color-primary: #b3c7f9; /* pastel periwinkle */
+  --color-accent: #f6c8a2; /* peach beige accent */
+  --color-bg: #fdf8f5; /* ivory rose */
+  --color-surface: #fffaf7; /* soft blush */
+  --color-text: #3a2f2a; /* warm brown-gray */
   --color-border: rgba(0, 0, 0, 0.08);
 
   /* Shadows */
@@ -56,7 +56,9 @@ body {
   min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
-  transition: background var(--transition-medium), color var(--transition-fast);
+  transition:
+    background var(--transition-medium),
+    color var(--transition-fast);
 }
 
 #root {
@@ -68,22 +70,37 @@ body {
 }
 
 /* === 2. Utilities === */
-.hidden { display: none !important; }
-.center { display: flex; align-items: center; justify-content: center; }
-.shadow-hover:hover { box-shadow: var(--shadow-medium); }
+.hidden {
+  display: none !important;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shadow-hover:hover {
+  box-shadow: var(--shadow-medium);
+}
 
 /* === 3. Typography === */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   margin: 0 0 0.5em;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text)
+  color: var(--color-text);
 }
-p, span, li {
+p,
+span,
+li {
   margin: 0 0 1em;
   line-height: 1.6;
   color: var(--color-text);
 }
-p, span, li:focus-visible {
+p,
+span,
+li:focus-visible {
   color: var(--color-text);
 }
 /* === 4. Links & Buttons === */
@@ -92,12 +109,14 @@ a {
   text-decoration: none;
   transition: color var(--transition-fast);
 }
-a:hover, a:focus-visible {
+a:hover,
+a:focus-visible {
   color: var(--color-accent);
   outline: none;
 }
 
-button, .btn {
+button,
+.btn {
   font: inherit;
   border: none;
   border-radius: var(--radius-md);
@@ -111,7 +130,7 @@ button:focus-visible,
 .btn:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  color: var(--color-text)
+  color: var(--color-text);
 }
 
 .btn-primary {
@@ -122,7 +141,7 @@ button:focus-visible,
 .btn-primary:hover {
   filter: brightness(0.95);
   transform: translateY(-2px);
-  color: var(--color-accent)
+  color: var(--color-accent);
 }
 
 /* === 5. Cards === */
@@ -133,7 +152,9 @@ button:focus-visible,
   padding: var(--spacing-lg);
   margin: var(--spacing-md) auto;
   max-width: 500px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 .card:hover {
   transform: translateY(-3px);
@@ -162,13 +183,19 @@ body.neumo {
   --color-text: #2f2724;
 }
 body.neumo .card {
-  box-shadow: 8px 8px 16px #d9cfc9, -8px -8px 16px #ffffff;
+  box-shadow:
+    8px 8px 16px #d9cfc9,
+    -8px -8px 16px #ffffff;
 }
 body.neumo button {
-  box-shadow: 4px 4px 8px #d9cfc9, -4px -4px 8px #ffffff;
+  box-shadow:
+    4px 4px 8px #d9cfc9,
+    -4px -4px 8px #ffffff;
 }
 body.neumo button:active {
-  box-shadow: inset 4px 4px 8px #d9cfc9, inset -4px -4px 8px #ffffff;
+  box-shadow:
+    inset 4px 4px 8px #d9cfc9,
+    inset -4px -4px 8px #ffffff;
 }
 
 /* 🍶 Clay — tactile matte look */
@@ -179,8 +206,9 @@ body.clay {
 }
 body.clay .card {
   background: linear-gradient(145deg, #ffffff, #f1e6e0);
-  box-shadow: 6px 6px 12px rgba(170, 150, 140, 0.15),
-              -6px -6px 12px rgba(255, 255, 255, 0.9);
+  box-shadow:
+    6px 6px 12px rgba(170, 150, 140, 0.15),
+    -6px -6px 12px rgba(255, 255, 255, 0.9);
 }
 
 /* === 7. Tone Modifiers === */
@@ -195,7 +223,6 @@ body.tone-dark {
   --color-text: #f6ede8;
   --color-primary: #c4d2ff;
   --color-accent: #f2b88b;
-  
 }
 body.tone-soft {
   --color-primary: #aeb8f0;
@@ -207,7 +234,8 @@ body.tone-vivid {
 }
 
 /* === 8. Header / Sidebar / Footer === */
-.app-header, .app-footer {
+.app-header,
+.app-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -229,7 +257,9 @@ body.tone-vivid {
   box-shadow: var(--shadow-medium);
   transition: left var(--transition-fast);
 }
-.sidebar.open { left: 0; }
+.sidebar.open {
+  left: 0;
+}
 
 .sidebar a {
   display: block;
@@ -240,19 +270,34 @@ body.tone-vivid {
 
 /* === 9. Responsive Layout === */
 @media (max-width: 1200px) {
-  #root { padding: var(--spacing-md); }
-  .card { max-width: 90%; }
+  #root {
+    padding: var(--spacing-md);
+  }
+  .card {
+    max-width: 90%;
+  }
 }
 @media (max-width: 992px) {
-  .card { max-width: 85%; }
+  .card {
+    max-width: 85%;
+  }
 }
 @media (max-width: 768px) {
-  .desktop-nav { display: none; }
-  .menu-btn { display: inline-block; }
-  .card { max-width: 95%; }
+  .desktop-nav {
+    display: none;
+  }
+  .menu-btn {
+    display: inline-block;
+  }
+  .card {
+    max-width: 95%;
+  }
 }
 @media (max-width: 576px) {
-  .card { max-width: 100%; padding: var(--spacing-md); }
+  .card {
+    max-width: 100%;
+    padding: var(--spacing-md);
+  }
 }
 
 /* === 10. API Table (Server Test) === */
@@ -312,8 +357,15 @@ body.tone-vivid {
 
 /* === 11. Responsive API Table === */
 @media (max-width: 768px) {
-  .api-row { flex-direction: column; }
-  .api-key, .api-value { flex: 1 1 100%; min-width: 0; }
-  .api-card h2 { font-size: 1rem; }
+  .api-row {
+    flex-direction: column;
+  }
+  .api-key,
+  .api-value {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .api-card h2 {
+    font-size: 1rem;
+  }
 }
-

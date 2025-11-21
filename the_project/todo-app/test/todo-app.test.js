@@ -14,8 +14,6 @@ describe("Server Routes", () => {
   it("should return welcome message for the root route", async () => {
     const res = await request(app).get("/");
     assert.equal(res.status, 302); // Because of redirect
-    assert.match(
-      res.text, /Redirecting to \/api\/v\d+\.\d+/,
-    );
+    assert.match(res.text, /Redirecting to \/api\/v\d+\.\d+/);
   });
 });
