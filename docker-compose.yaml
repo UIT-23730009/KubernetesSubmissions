@@ -11,6 +11,8 @@ services:
       - "0.0.0.0:80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/vhost.d:/etc/nginx/vhost.d:ro
+      - ./nginx/html:/usr/share/nginx/html
     restart: unless-stopped
 
   # Log output service
@@ -69,7 +71,7 @@ services:
       context: ./the_project/todo-frontend
       args:
         # Use Docker service name, not external domain
-        VITE_API_URL: todo-app.colasloth.com
+        VITE_API_URL: todo-app:3002
         VITE_API_VERSION: v1.4
         VITE_ENV: production
         VITE_APP_VERSION: 1.4.0
