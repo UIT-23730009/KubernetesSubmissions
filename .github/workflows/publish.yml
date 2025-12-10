@@ -1,5 +1,4 @@
 name: Create and publish Docker images
-
 on:
   push:
     branches: ["main", "release"]
@@ -8,11 +7,9 @@ on:
   workflow_run:
     workflows: ["Node.js CI", "CodeQL Advanced"]
     types: [completed]
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME_BASE: ${{ github.repository }}
-
 jobs:
   build-and-push-images:
     runs-on: ubuntu-latest
@@ -21,11 +18,9 @@ jobs:
       packages: write
       attestations: write
       id-token: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
       # Login to GHCR
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -33,14 +28,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       # Optional: if you also want to push to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
       # ---------------------------
       # log_output module
       # ---------------------------
@@ -49,8 +42,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
-          tags: main
-
+          tags: latest
       - name: Build & push log_output image
         id: build-log
         uses: docker/build-push-action@v6
@@ -59,18 +51,12 @@ jobs:
           push: true
           tags: ${{ steps.meta-log.outputs.tags }}
           labels: ${{ steps.meta-log.outputs.labels }}
-
       - name: Attest log_output image
-        uses: actions/attest@v3
+        uses: actions/attest-build-provenance@v1
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
           subject-digest: ${{ steps.build-log.outputs.digest }}
-          predicate-type: https://slsa.dev/provenance/v1
           push-to-registry: true
-          show-summary: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # ---------------------------
       # todo-app module
       # ---------------------------
@@ -79,8 +65,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
-          tags: main
-
+          tags: latest
       - name: Build & push todo-app image
         id: build-todo
         uses: docker/build-push-action@v6
@@ -89,18 +74,12 @@ jobs:
           push: true
           tags: ${{ steps.meta-todo.outputs.tags }}
           labels: ${{ steps.meta-todo.outputs.labels }}
-
       - name: Attest todo-app image
-        uses: actions/attest@v3
+        uses: actions/attest-build-provenance@v1
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
           subject-digest: ${{ steps.build-todo.outputs.digest }}
-          predicate-type: https://slsa.dev/provenance/v1
           push-to-registry: true
-          show-summary: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # ---------------------------
       # Print all digests
       # ---------------------------
