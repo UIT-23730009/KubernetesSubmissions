@@ -1,14 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
 name: Publish Docker image
-
 on:
   push:
     branches: ["main", "release"]
@@ -17,10 +7,9 @@ on:
   workflow_run:
     workflows: ["Node.js CI", "CodeQL Advanced"]
     types: [completed]
-
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -30,40 +19,52 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v5
-
       - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      # -------------------------------
+      # Build & push log-output image
+      # -------------------------------
+      - name: Extract metadata for log-output
+        id: meta-log-output
+        uses: docker/metadata-action@v5
         with:
-          images: my-docker-hub-namespace/my-docker-hub-repository
-
-      - name: Build and push Docker image
+          images: quangcuonghuynh/log-output
+      - name: Build and push log-output image
         id: log-output-push
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@v5
         with:
           context: ./log_output
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Build and push Docker image
+          tags: ${{ steps.meta-log-output.outputs.tags }}
+          labels: ${{ steps.meta-log-output.outputs.labels }}
+      - name: Attest log-output image
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: index.docker.io/quangcuonghuynh/log-output
+          subject-digest: ${{ steps.log-output-push.outputs.digest }}
+          push-to-registry: true
+      # -------------------------------
+      # Build & push todo-app image
+      # -------------------------------
+      - name: Extract metadata for todo-app
+        id: meta-todo
+        uses: docker/metadata-action@v5
+        with:
+          images: quangcuonghuynh/todo-app
+      - name: Build and push todo-app image
         id: todo-push
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@v5
         with:
           context: ./the_project/todo-app
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v3
+          tags: ${{ steps.meta-todo.outputs.tags }}
+          labels: ${{ steps.meta-todo.outputs.labels }}
+      - name: Attest todo-app image
+        uses: actions/attest-build-provenance@v1
         with:
-          subject-name: index.docker.io/my-docker-hub-namespace/my-docker-hub-repository
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-name: index.docker.io/quangcuonghuynh/todo-app
+          subject-digest: ${{ steps.todo-push.outputs.digest }}
           push-to-registry: true

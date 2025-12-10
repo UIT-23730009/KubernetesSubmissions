@@ -5,6 +5,8 @@
 [![Node.js CI](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml)
 [![Microsoft Defender For Devops](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml)
 [![ESLint](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/eslint.yml/badge.svg?branch=main)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/eslint.yml)
+[![Create and publish Docker images](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/publish.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/publish.yml)
+[![Publish Docker image](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/docker-image.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/docker-image.yml)
 
 ## Exercises
 
