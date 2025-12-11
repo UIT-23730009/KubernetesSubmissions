@@ -1,6 +1,6 @@
 {
   "name": "log_output",
-  "version": "1.4.1",
+  "version": "1.4.4",
   "description": "Deploy with `kubectl apply -a manifests`",
   "type": "module",
   "main": "server.js",

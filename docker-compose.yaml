@@ -10,8 +10,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-
-
   log-output:
     build: ./log_output
     environment:

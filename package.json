@@ -46,7 +46,7 @@
     "start": "concurrently \"npm --workspace log_output start\" \"npm --workspace the_project/todo-app start\"",
     "start:log_output": "npm --workspace log_output start",
     "start:todo-app": "npm --workspace the_project/todo-app start",
-    "start:all": "npm run start:log_output & npm run start:todo-app",
+    "start:all": "LOG_OUTPUT_PORT=3001 npm run start:log_output & TODO_PORT=3002 npm run start:todo-app",
     "dev": "concurrently \"npm --workspace log_output run dev\" \"npm --workspace the_project/todo-app run dev\"",
     "dev:log_output": "npm --workspace log_output run dev",
     "dev:todo-app": "npm --workspace the_project/todo-app run dev",
